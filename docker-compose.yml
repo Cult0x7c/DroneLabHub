@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  dronelabhub:
+    image: ${DOCKER_REGISTRY-}dronelabhub
+    build:
+      context: .
+      dockerfile: DroneLabHub/Dockerfile
+    volumes:
+    - "C:/test2:/app/dronelab:rw"

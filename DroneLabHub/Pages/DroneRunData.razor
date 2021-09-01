@@ -1,0 +1,61 @@
+﻿@page "/dronerundata"
+
+@using DroneLabHub.Data
+@inject DroneRunService RunService
+
+<h1>DroneRun Data</h1>
+
+<p>Data is beautiful</p>
+
+@if (droneRuns == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>elapsed_time</th>
+                <th>frame</th>
+                <th>battery</th>
+                <th>temperature</th>
+                <th>flight_time</th>
+                <th>height</th>
+                <th>pitch</th>
+                <th>roll</th>
+                <th>yaw</th>
+                <th>get_distance_tof</th>
+                <th>get_barometer</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var runData in droneRuns)
+            {
+            <tr>
+                <td>@runData.elapsed_time </td>
+                <td>@runData.frame</td>
+                <td>@runData.battery</td>
+                <td>@runData.temperature</td>
+                <td>@runData.flight_time </td>
+                <td>@runData.height</td>
+                <td>@runData.pitch</td>
+                <td>@runData.roll</td>
+                <td>@runData.yaw</td>
+                <td>@runData.get_distance_tof</td>
+                <td>@runData.get_barometer</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<DroneRun> droneRuns = new List<DroneRun>();
+
+    protected override void OnInitialized()
+    {
+        DroneRunService dRunService = new DroneRunService();
+        droneRuns = dRunService.GetDroneRuns();
+    }
+}

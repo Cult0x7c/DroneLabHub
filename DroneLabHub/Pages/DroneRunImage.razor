@@ -1,0 +1,53 @@
+﻿@page "/dronerunimage"
+
+@using DroneLabHub.Data
+@inject DroneRunService RunService
+
+<h3>DroneRunImages</h3>
+<div class="row">
+    @for (int i = 1; i <= 40; i++)
+    {
+        var j = i;
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src=@ImagePath(i) alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@CardTitle(i)</h5>
+                    <p class="card-text">Lorem Ipsum dolor sit amet.</p>
+                    <button id=@i class="btn btn-primary" @onclick="()=>HoughTransform(j)">Perform Hough Transform</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("Test");
+    }
+
+    private string ImagePath(int i)
+    {
+        string fmt = "000.##";
+        string x = i.ToString(fmt);
+
+        string iPath = "/img/fps_1_frame_" + x + ".jpg";
+        //Console.WriteLine(iPath);
+        return iPath;
+    }
+
+    private string CardTitle(int i) { return "Frame " + i; }
+
+    private void HoughTransform(int i)
+    {
+        Console.WriteLine("Clicked Button: " + i);
+        performHoughTransform();
+    }
+
+    private static void performHoughTransform()
+    {
+        DroneRunService dRunService = new DroneRunService();
+        dRunService.HoughTransform();
+    }
+}
